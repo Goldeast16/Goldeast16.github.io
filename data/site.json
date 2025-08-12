@@ -1,0 +1,19 @@
+{
+  "interests": [
+    "Edge AI (TensorRT/TFLite) 최적화",
+    "Speech F0 추정·온디바이스 검색",
+    "LLM Distillation/Quantization"
+  ],
+  "now": [
+    "FastAPI + MongoDB 강의실 API 유지 보수",
+    "음성/경량화 서베이 정리 (주 4회)",
+    "백준 1문제/일, ADsP 시험 대비"
+  ],
+  "education": [
+    {"when":"2027–2028","title":"B.S. in AI (예정)","desc":"복학 2027-1, 졸업 2028-02."},
+    {"when":"2023–2025","title":"학부 휴학","desc":"연구 주제 탐색·개발 프로젝트"}
+  ],
+  "career": [
+    {"when":"2025–","title":"Backend Contributor","desc":"빈 강의실 조회 API (FastAPI·MongoDB·Render)."}
+  ]
+}

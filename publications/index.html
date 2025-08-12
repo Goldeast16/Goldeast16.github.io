@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications — 김동건</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+  <header><div class="wrap brand"><div class="logo">DG <span>Portfolio</span></div><div class="muted" style="font-size:14px">Seoul · +09:00</div></div></header>
+  
+  <main class="wrap">
+    <h1>Publications</h1>
+    <div class="list" id="pubList"></div>
+  </main>
+
+  <footer class="wrap"><small>© <span id="y"></span> Donggeon Kim</small></footer>
+  <script src="/assets/js/render.js"></script>
+  <script src="/assets/js/site.js"></script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();
+  window.addEventListener('DOMContentLoaded', async()=>{await renderPage('publications');});
+  </script>
+</body>
+</html>

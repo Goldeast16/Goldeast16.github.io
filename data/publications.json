@@ -1,0 +1,14 @@
+[
+  {
+    "thumb": "/thumbs/kd-llm.jpg",
+    "title": "Knowledge Distillation for LLMs: Stability vs. Performance",
+    "authors": "Kim*, Lee*, Park, et al.",
+    "venue": "EMNLP 2025 (under review)",
+    "links": {
+      "pdf": "/papers/kd_llm.pdf",
+      "arxiv": "https://arxiv.org/abs/PLACEHOLDER",
+      "code": "https://github.com/YOUR-USERNAME/kd-llm",
+      "bibtex": "@inproceedings{kim2025kdllm, title={Knowledge Distillation for LLMs}, author={...}, booktitle={EMNLP}, year={2025}}"
+    }
+  }
+]

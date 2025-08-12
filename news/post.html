@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>News Post — 김동건</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <!-- Markdown 렌더러 (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header><div class="wrap brand"><div class="logo">DG <span>Portfolio</span></div><div class="muted" style="font-size:14px">Seoul · +09:00</div></div></header>
+  
+  <main class="wrap post">
+    <article id="newsPost"></article>
+  </main>
+
+  <footer class="wrap"><small>© <span id="y"></span> Donggeon Kim</small></footer>
+  <script src="/assets/js/render.js"></script>
+  <script src="/assets/js/site.js"></script>
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    window.addEventListener('DOMContentLoaded', async()=>{await renderPage('news-post');});
+  </script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+[
+  {
+    "thumb": "/thumbs/rooms.jpg",
+    "title": "빈 강의실 조회 API",
+    "meta": "FastAPI · MongoDB · Render | 2025",
+    "desc": "건물/층/시간대별 공실 조회 REST API. 인덱싱·보안·배포 자동화.",
+    "tags": ["FastAPI", "MongoDB", "REST"],
+    "pdf": "/projects_files/rooms_api_summary.pdf",
+    "repo": "https://github.com/YOUR-USERNAME/rooms-api"
+  },
+  {
+    "thumb": "/thumbs/hum2classic.jpg",
+    "title": "허밍→클래식 검색",
+    "meta": "DSP · CREPE | 2025–",
+    "desc": "F0 추정→악곡 매칭. 온디바이스 경량화 실험 예정.",
+    "tags": ["DSP", "CREPE", "Edge"],
+    "pdf": "/projects_files/hum2classic_overview.pdf",
+    "repo": "#"
+  }
+]
