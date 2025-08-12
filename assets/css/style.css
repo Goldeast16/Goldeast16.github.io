@@ -1,64 +1,140 @@
-:root{
-  --bg:#0b1020;--soft:#121a2d;--card:#0f172a;--text:#e6edf3;--muted:#9fb0c0;--brand:#0ea5e9;--accent:#22d3ee;--border:#1f2941;--radius:18px;--wrap:1120px
+/* ======= Base / Theme ======= */
+:root {
+  --bg: #0b0d10;           /* dark default */
+  --bg-elev: #11141a;
+  --panel: rgba(255,255,255,0.04);
+  --text: #e6eaf2;
+  --muted: #98a2b3;
+  --line: #2a2f3a;
+  --accent: #7c3aed;       /* violet */
+  --accent-2: #22c55e;     /* green */
+  --ring: rgba(124,58,237,.35);
+  --shadow: 0 8px 30px rgba(0,0,0,.25);
+  --radius: 18px;
+  --sidebar-w: 72px;
 }
-@media (prefers-color-scheme: light){:root{--bg:#f8fafc;--soft:#eef2f7;--card:#fff;--text:#0b1220;--muted:#526179;--border:#e2e8f0}}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:
-  radial-gradient(1000px 500px at 80% -10%, rgba(14,165,233,.12), transparent),
-  radial-gradient(1000px 400px at -10% 20%, rgba(34,211,238,.10), transparent),var(--bg);
-  color:var(--text);font:16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif}
-a{color:inherit;text-decoration:none}
-img{max-width:100%;display:block}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:24px 20px}
-.card{background:linear-gradient(180deg,color-mix(in oklab,var(--card) 96%,transparent),var(--card));border:1px solid var(--border);border-radius:var(--radius);box-shadow:0 2px 18px rgba(2,6,23,.35)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border)}
-.btn.primary{background:linear-gradient(135deg,var(--brand),var(--accent));color:#031222;border:none;font-weight:700}
-.btn.ghost{color:var(--muted)}
-.tag{font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:999px;color:var(--muted)}
 
-/* Right vertical nav */
-.vnav{position:fixed;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:60}
-.vnav a{writing-mode:vertical-rl;transform:rotate(180deg);padding:10px 8px;border:1px solid var(--border);border-radius:12px;background:color-mix(in oklab,var(--soft) 80%,transparent);color:var(--muted);transition:.2s}
-.vnav a.active,.vnav a:hover{color:var(--text);border-color:var(--brand);box-shadow:0 0 0 4px color-mix(in oklab,var(--brand) 20%,transparent)}
+html[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg-elev: #ffffff;
+  --panel: rgba(2,6,23,0.06);
+  --text: #081018;
+  --muted: #475569;
+  --line: #e2e8f0;
+  --ring: rgba(124,58,237,.25);
+  --shadow: 0 10px 24px rgba(15,23,42,.08);
+}
 
-/* Headings / layout */
-header{position:sticky;top:0;backdrop-filter:saturate(150%) blur(10px);background:color-mix(in oklab,var(--bg) 92%,transparent);border-bottom:1px solid var(--border);z-index:50}
-.brand{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand .logo{font-weight:900;letter-spacing:.2px}
-.brand .logo span{color:var(--brand)}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0;
+  background: radial-gradient(1200px 800px at 85% 10%, rgba(124,58,237,.08), transparent 60%), var(--bg);
+  color: var(--text);
+  font: 15px/1.65 system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, 'Noto Sans KR', Helvetica, Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
 
-section{padding:36px 0}
-h1{font-size:clamp(26px,4vw,44px);margin:0 0 10px;letter-spacing:-.3px}
-h2{font-size:clamp(20px,2.6vw,28px);margin:0 0 16px}
-h3{font-size:18px;margin:0 0 8px}
-.lead{color:var(--muted)}
-.grid{display:grid;gap:16px}
-.grid.h2{grid-template-columns:1fr 1fr}
-.grid.h3{grid-template-columns:repeat(3,1fr)}
-@media (max-width: 960px){.grid.h2{grid-template-columns:1fr}.grid.h3{grid-template-columns:1fr 1fr}}
-@media (max-width: 640px){.grid.h3{grid-template-columns:1fr}}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+a:hover { color: var(--accent); }
 
-/* Home */
-.bio{display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:center}
-@media (max-width: 880px){.bio{grid-template-columns:1fr}}
-.me{aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border)}
-.minihead{display:flex;align-items:center;justify-content:space-between;margin:6px 0 12px}
-.muted{color:var(--muted)}
-.timeline{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width: 880px){.timeline{grid-template-columns:1fr}}
-.tcol{position:relative;padding-left:16px}
-.titem{position:relative;border-left:2px solid var(--border);padding:10px 12px;margin:6px 0}
-.titem::before{content:"";position:absolute;left:-7px;top:14px;width:12px;height:12px;border-radius:999px;background:var(--brand);box-shadow:0 0 0 4px color-mix(in oklab,var(--brand) 30%,transparent)}
-.when{font-size:12px;color:var(--muted)}
+.container { max-width: 1060px; margin: 0 auto; padding: 40px 24px; }
+.main { margin-right: calc(var(--sidebar-w) + 14px); }
+.section { margin: 56px 0; }
+.section-title { font-size: 22px; font-weight: 800; letter-spacing: .2px; margin: 0 0 16px; }
+.subtle { color: var(--muted); }
 
-/* Lists */
-.list{display:grid;gap:12px}
-.row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:start;border:1px solid var(--border);border-radius:14px;padding:12px;background:var(--soft)}
-.row .thumb{width:120px;height:80px;object-fit:cover;border-radius:10px;border:1px solid var(--border)}
-.row .meta{font-size:14px;color:var(--muted)}
+/* Cards */
+.card {
+  background: linear-gradient(180deg, var(--bg-elev), color-mix(in srgb, var(--bg-elev) 90%, black 10%));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); }
+.card-pad { padding: 18px 18px; }
 
-/* News post */
-.post h1{font-size:28px}
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  padding: 3px 10px; border-radius: 999px; font-weight: 600; font-size: 12px;
+  border: 1px solid var(--line); color: var(--muted); background: var(--panel);
+}
 
-footer{padding:28px 0 56px;color:var(--muted);text-align:center}
+/* Lists (Publications/Projects/News) */
+.list { display: grid; gap: 14px; }
+.list-item { display: grid; grid-template-columns: 112px 1fr; gap: 14px; align-items: center; padding: 12px; }
+.list-item .thumb { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+.list-item .meta { display: grid; gap: 6px; }
+.list-item .title { font-weight: 800; font-size: 16px; }
+.list-item .desc, .list-item .byline { color: var(--muted); font-size: 13px; }
+
+@media (max-width: 720px){
+  .list-item { grid-template-columns: 1fr; }
+}
+
+/* ======= Right Slim Sidebar ======= */
+.sidebar { position: fixed; right: 0; top: 0; width: var(--sidebar-w); height: 100vh; z-index: 50;
+  border-left: 1px solid var(--line); background: var(--bg-elev); backdrop-filter: blur(6px); }
+.sidebar-inner{ position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 14px 8px; }
+.sidebar .logo { font-size: 22px; font-weight: 900; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--bg-elev); }
+.sidebar nav { display: grid; gap: 8px; margin-top: 8px; }
+.sidebar a.nav { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; border: 1px solid var(--line); background: var(--bg-elev); color: var(--muted); font-weight: 800; font-size: 12px; }
+.sidebar a.nav.active, .sidebar a.nav:hover { color: white; border-color: var(--accent); outline: 3px solid var(--ring); }
+.sidebar .theme-toggle { margin-top: auto; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg-elev); color: var(--muted); font-weight: 800; cursor: pointer; }
+.sidebar .theme-toggle:hover { border-color: var(--accent); color: white; }
+
+/* ======= Home: Header (About / Interests / Now) ======= */
+.header {
+  display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: center;
+}
+.header .avatar { border-radius: 16px; border: 1px solid var(--line); }
+.header .about { display: grid; gap: 8px; }
+.info-duo { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.info-card h4 { margin: 0 0 6px; font-size: 14px; color: var(--muted); }
+.info-card p { margin: 0; font-weight: 700; }
+
+@media (max-width: 820px){
+  .header { grid-template-columns: 1fr; }
+  .info-duo { grid-template-columns: 1fr; }
+}
+
+/* ======= Timeline (Education vs Career) ======= */
+.timeline {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 22px; position: relative;
+}
+.timeline::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--line); transform: translateX(-50%); }
+
+.t-col { display: grid; gap: 16px; }
+.t-item { position: relative; padding: 14px 14px 14px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--bg-elev); }
+.t-item .when { font-size: 12px; color: var(--muted); font-weight: 700; }
+.t-item .what { font-weight: 900; margin: 4px 0 2px; }
+.t-item .where { font-size: 13px; color: var(--muted); }
+
+/* bullets on center line */
+.t-item::after { content:""; position: absolute; top: 18px; width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--accent); background: var(--bg); }
+.t-col.education .t-item::after { right: -28px; }
+.t-col.career .t-item::after { left: -28px; }
+
+@media (max-width: 900px){
+  .timeline { grid-template-columns: 1fr; }
+  .timeline::before { left: 0; width: 0; }
+  .t-item::after { display: none; }
+}
+
+/* ======= Utilities ======= */
+hr { border: none; height: 1px; background: var(--line); margin: 24px 0; }
+.m-0{margin:0}.mt-8{margin-top:8px}.mt-16{margin-top:16px}.mt-24{margin-top:24px}
+.fade { opacity: 0; transform: translateY(8px); transition: opacity .35s ease, transform .35s ease; }
+.fade.in { opacity: 1; transform: none; }
+
+/* Scrollbar */
+:root {
+  scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+}
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 10px; }
+
+/* Print (for future cv.html) */
+@media print { .sidebar { display:none } .main{ margin-right:0 } }

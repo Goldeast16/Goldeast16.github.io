@@ -1,67 +1,60 @@
-// 작은 헬퍼들
-const $ = (sel, el=document) => el.querySelector(sel);
-const $$ = (sel, el=document) => [...el.querySelectorAll(sel)];
+// Inject sidebar, theme toggle, scrollspy, reveal-on-scroll, and page-link highlighting
+(async () => {
+  // 1) Sidebar inject
+  const mount = document.createElement('div');
+  mount.id = '___sidebar';
+  document.body.appendChild(mount);
+  try {
+    const res = await fetch('/partials/sidebar.html');
+    mount.outerHTML = await res.text();
+  } catch(e){ console.warn('sidebar inject failed', e); }
 
-// 공통: 우측 사이드바/활성화 상태 로드
-async function loadSidebar() {
-  const holder = document.createElement('div');
-  document.body.appendChild(holder);
-  const res = await fetch('/partials/sidebar.html');
-  holder.outerHTML = await res.text();
-  setActiveNav();
-}
+  // 2) Theme bootstrap
+  const root = document.documentElement;
+  const stored = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  root.setAttribute('data-theme', stored || (prefersDark ? 'dark' : 'light'));
+  window.toggleTheme = () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next); localStorage.setItem('theme', next);
+  };
 
-function setActiveNav() {
-  const path = location.pathname.replace(/\/$/, '/');
-  $$('[data-nav]').forEach(a => {
-    const href = new URL(a.href);
-    const same = href.pathname.replace(/\/$/, '/') === path;
-    a.classList.toggle('active', same);
-  });
-}
+  // 3) Highlight current page in sidebar when loaded
+  const markActive = () => {
+    const cur = location.pathname.replace(/\/$/, '') || '/';
+    document.querySelectorAll('.sidebar a.nav').forEach(a => {
+      const path = (a.getAttribute('href') || '').replace(/\/$/, '') || '/';
+      if (path === cur) a.classList.add('active');
+    });
+  };
+  document.addEventListener('readystatechange', markActive);
+  markActive();
 
-// 홈 데이터 로드 & 타임라인/요약 렌더
-async function loadHomeData() {
-  const res = await fetch('/data/site.json');
-  const D = await res.json();
+  // 4) ScrollSpy for same-page sections (Home)
+  const anchors = [...document.querySelectorAll('.sidebar a.nav[data-spy]')];
+  if (anchors.length) {
+    const map = new Map(anchors.map(a => [a.getAttribute('href'), a]));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const id = '#' + e.target.id;
+        const link = map.get(id);
+        if (!link) return;
+        if (e.isIntersecting) {
+          anchors.forEach(x => x.classList.remove('active'));
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    document.querySelectorAll('section[id]').forEach(sec => io.observe(sec));
+  }
 
-  // Interests
-  const interests = $('#interests');
-  if (interests) interests.innerHTML = D.interests.map(x=>`<span class="tag">${x}</span>`).join(' ');
-
-  // Now
-  const now = $('#nowlist');
-  if (now) now.innerHTML = D.now.map(x=>`<li>${x}</li>`).join('');
-
-  // Timeline
-  const eduCol = $('#eduCol');
-  const careerCol = $('#careerCol');
-  if (eduCol) D.education.forEach(it=>{
-    const div = document.createElement('div');
-    div.className='titem card';
-    div.innerHTML = `<div class="when">${it.when}</div><strong>${it.title}</strong><div class="muted">${it.desc||''}</div>`;
-    eduCol.appendChild(div);
-  });
-  if (careerCol) D.career.forEach(it=>{
-    const div = document.createElement('div');
-    div.className='titem card';
-    div.innerHTML = `<div class="when">${it.when}</div><strong>${it.title}</strong><div class="muted">${it.desc||''}</div>`;
-    careerCol.appendChild(div);
-  });
-
-  // 프리뷰들
-  const [pubs, projs, news] = await Promise.all([
-    fetch('/data/publications.json').then(r=>r.json()),
-    fetch('/data/projects.json').then(r=>r.json()),
-    fetch('/news/posts.json').then(r=>r.json())
-  ]);
-  if ($('#pubPreview')) renderPublications(pubs, '#pubPreview', 3);
-  if ($('#projPreview')) renderProjects(projs, '#projPreview', 3);
-  if ($('#newsPreview')) renderNews(news, '#newsPreview', 3);
-}
-
-// 페이지 로드시 공통 실행
-window.addEventListener('DOMContentLoaded', async () => {
-  await loadSidebar();
-  // 각 페이지에서 필요한 렌더 호출은 개별 HTML에서 수행
-});
+  // 5) Reveal on scroll (reusable)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    const reveal = document.querySelectorAll('.fade');
+    const io2 = new IntersectionObserver((ents) => {
+      ents.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0 });
+    reveal.forEach(el => io2.observe(el));
+  }
+})();
